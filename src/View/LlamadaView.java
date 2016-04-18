@@ -8,7 +8,6 @@ import LogicaNegocio.HiloLlamada;
  */
 public class LlamadaView extends javax.swing.JFrame {
     public HiloLlamada llamada;
-    private Thread miLlamada;
     private String placa;
     private String modelo;
     private String marca;
@@ -23,12 +22,14 @@ public class LlamadaView extends javax.swing.JFrame {
     private float distancia;
     private float tiempoLlegada;
     private float tiempoAtencion;
-    
+
     public LlamadaView() {
         initComponents();
-        llamada= new HiloLlamada();
+        llamada = new HiloLlamada();
+        IniciarLlamada();
+        
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -282,9 +283,22 @@ public class LlamadaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerificarPolizaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarPolizaBotonActionPerformed
+        try {
+            placa = PlacaField.getText();
+            modelo = ModeloField.getText();
+            marca = MarcaField.getText();            
+            colision= colisionCheck.isSelected();
+            fallaDesconocida= FallaCheck.isSelected();
+            faltaCombustible= FaltaCombCheck.isSelected();
+            
+        }catch(Exception e){
         
+        }
     }//GEN-LAST:event_VerificarPolizaBotonActionPerformed
 
+    public void IniciarLlamada(){
+        llamada.getMiLlamada().start();
+    }
     /**
      * @param args the command line arguments
      */
