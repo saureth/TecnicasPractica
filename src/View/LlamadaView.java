@@ -26,8 +26,6 @@ public class LlamadaView extends javax.swing.JFrame {
 
     public LlamadaView() {
         initComponents();
-        llamada = new HiloLlamada();
-        IniciarLlamada();        
     }
 
     @SuppressWarnings("unchecked")
@@ -105,6 +103,11 @@ public class LlamadaView extends javax.swing.JFrame {
         jLabel8.setText("Motor");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Cliente");
 
@@ -308,12 +311,16 @@ public class LlamadaView extends javax.swing.JFrame {
             this.setVisible(false);
             }
         }catch(Exception e){
-        
+            JOptionPane.showMessageDialog(null, "error desconocido "+ e.getMessage());
         }
     }//GEN-LAST:event_VerificarPolizaBotonActionPerformed
 
-    public void IniciarLlamada(){
-        llamada.getMiLlamada().start();
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+    public void generarHilo(HiloLlamada x){
+        this.llamada=x;
+        this.llamada.getMiLlamada().start();
     }
     /**
      * @param args the command line arguments

@@ -1,4 +1,7 @@
 package View;
+
+import LogicaNegocio.HiloLlamada;
+
 /**
  *
  * @author santiago.sanmartin
@@ -45,8 +48,10 @@ public class InterfazPPal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        LlamadaView llamadaNueva = new LlamadaView();
+        HiloLlamada x = new HiloLlamada();
+        LlamadaView llamadaNueva = new LlamadaView();        
         llamadaNueva.setVisible(true);
+        llamadaNueva.generarHilo(x);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

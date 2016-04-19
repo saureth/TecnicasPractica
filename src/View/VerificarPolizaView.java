@@ -77,7 +77,7 @@ public class VerificarPolizaView extends javax.swing.JFrame {
         archivo= Escoger.getSelectedFile();
         VerificarPoliza poliza = new VerificarPoliza(placa, archivo, colision, fallaDesc, faltaComb);
         if (poliza.VerificarVigenciaSeguro()){
-            JOptionPane.showMessageDialog(null, "Seguro al Día" + poliza.VerificarCoberturaProblema());
+            JOptionPane.showMessageDialog(null, "Seguro al Día " + poliza.VerificarCoberturaProblema());
         }
     }//GEN-LAST:event_EscogerActionPerformed
 

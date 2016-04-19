@@ -36,26 +36,35 @@ public class VerificarPoliza {
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.contains(line)) {
                     this.setAsegurado(true);
+                } else {
+                    this.setAsegurado(false);
                 }
-                else this.setAsegurado(false);
             }
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null,e.getCause(),"archivo no encontrado",Integer.BYTES);
+            JOptionPane.showMessageDialog(null, e.getCause(), "archivo no encontrado", Integer.BYTES);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,e.getCause(),"error desconocido",Integer.BYTES);
+            JOptionPane.showMessageDialog(null, e.getCause(), "error desconocido", Integer.BYTES);
         }
         return this.isAsegurado();
     }
-    
-    public String VerificarCoberturaProblema(){        
+
+    public String VerificarCoberturaProblema() {
         /* El seguro solo cubre colisiones y falta de combustible*/
-        if (colision) {
-            this.setCubierto("Cubre Colision");
-        }if (fallaDesc) {
-            this.setCubierto("No Cubre Fallas Desconocidas");
-        }if (faltaComb) {
-            this.setCubierto("Cubre falta de Combustible");
-        }else this.setCubierto("¿?");
+        if (this.isFallaDesc()&&!this.isColision()&&!this.isFaltaComb()) {//100
+            this.setCubierto("el seguro no cubre este daño");
+        }else if (this.isFallaDesc()&&this.isColision()&&!this.isFaltaComb()) {//110
+            this.setCubierto("el seguro cubre 50% de los daños");
+        }else if (this.isFallaDesc()&&!this.isColision()&&this.isFaltaComb()) {//101
+            this.setCubierto("el seguro cubre 50% de los daños");
+        }else if (this.isFallaDesc()&&this.isColision()&&this.isFaltaComb()) {//111
+            this.setCubierto("el seguro cubre 70% de los daños");
+        }else if (!this.isFallaDesc()&&!this.isColision()&&this.isFaltaComb()) {//001
+            this.setCubierto("el seguro cubre 100% de los daños");
+        }else if (!this.isFallaDesc()&&this.isColision()&&!this.isFaltaComb()) {//010
+            this.setCubierto("el seguro cubre 100% de los daños");
+        }else if (!this.isFallaDesc()&&this.isColision()&&this.isFaltaComb()) {//011
+            this.setCubierto("el seguro cubre 66% de los daños");
+        }
         return this.getCubierto();
     }
 
@@ -90,5 +99,29 @@ public class VerificarPoliza {
     public void setCubierto(String cubierto) {
         this.cubierto = cubierto;
     }
-    
+
+    public boolean isColision() {
+        return colision;
+    }
+
+    public void setColision(boolean colision) {
+        this.colision = colision;
+    }
+
+    public boolean isFallaDesc() {
+        return fallaDesc;
+    }
+
+    public void setFallaDesc(boolean fallaDesc) {
+        this.fallaDesc = fallaDesc;
+    }
+
+    public boolean isFaltaComb() {
+        return faltaComb;
+    }
+
+    public void setFaltaComb(boolean faltaComb) {
+        this.faltaComb = faltaComb;
+    }
+
 }
