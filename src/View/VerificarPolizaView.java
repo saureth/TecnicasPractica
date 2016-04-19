@@ -5,17 +5,33 @@
  */
 package View;
 
+import LogicaNegocio.VerificarPoliza;
+import java.io.File;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author santiago.sanmartin
  */
 public class VerificarPolizaView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VerificarPolizaView
-     */
+    private static String placa;
+    private VerificarPoliza poliza;
+    private File archivo;
+    private static boolean colision;
+    private static boolean fallaDesc;
+    private static boolean faltaComb;
+
     public VerificarPolizaView() {
         initComponents();
+    }
+
+    public VerificarPolizaView(String placa, boolean colision, boolean fallaDesc, boolean faltaComb) {
+        initComponents();
+        this.placa = placa;
+        this.colision = colision;
+        this.fallaDesc = fallaDesc;
+        this.faltaComb = faltaComb;
     }
 
     /**
@@ -27,32 +43,48 @@ public class VerificarPolizaView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFileChooser1 = new javax.swing.JFileChooser();
+        Escoger = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Escoger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EscogerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Escoger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Escoger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void EscogerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EscogerActionPerformed
+        archivo= Escoger.getSelectedFile();
+        VerificarPoliza poliza = new VerificarPoliza(placa, archivo, colision, fallaDesc, faltaComb);
+        if (poliza.VerificarVigenciaSeguro()){
+            JOptionPane.showMessageDialog(null, "Seguro al Día" + poliza.VerificarCoberturaProblema());
+        }
+    }//GEN-LAST:event_EscogerActionPerformed
+
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -63,17 +95,40 @@ public class VerificarPolizaView extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerificarPolizaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerificarPolizaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerificarPolizaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerificarPolizaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerificarPolizaView.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VerificarPolizaView.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VerificarPolizaView.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VerificarPolizaView.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -85,6 +140,6 @@ public class VerificarPolizaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JFileChooser Escoger;
     // End of variables declaration//GEN-END:variables
 }
