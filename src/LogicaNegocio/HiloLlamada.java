@@ -17,11 +17,15 @@ public class HiloLlamada implements Runnable {
     private float distancia;
     private float tiempoLlegada;
     private float tiempoAtencion;
-    int x = 0;
+    private String[][] mecanicos;
+    private int idLlamada;
 
-    public HiloLlamada() {
+    public HiloLlamada(int contLlamadas) {
         miLlamada = new Thread(this);
         miLlamada.run();
+        mecanicos = new String[50][2];
+        llenarMecanicos();
+        idLlamada=contLlamadas;
     }
 
     public HiloLlamada(Thread miLlamada, String placa, String modelo, String marca, boolean colision, boolean fallaDesconocida, boolean faltaCombustible, String descripcion, String motot, String cliente, String tipoVehiculo, boolean requiereRepuesto, float distancia, float tiempoLlegada, float tiempoAtencion) {
@@ -40,14 +44,55 @@ public class HiloLlamada implements Runnable {
         this.distancia = distancia;
         this.tiempoLlegada = tiempoLlegada;
         this.tiempoAtencion = tiempoAtencion;
+        this.mecanicos = mecanicos = new String[50][2];
+        llenarMecanicos();
     }
 
     @Override
     public void run() {
-        while(this.miLlamada.isAlive()){
-            System.out.println("hola " + x);
-            x++;
+        while (this.miLlamada.isAlive()) {
+            System.out.println("Llamada # : " + idLlamada);
         }
+    }
+
+    public String buscarMecanico(String tipoMotor) {
+        String aux1, aux2, mecanico="";
+        boolean encontrado= false;
+        for (int i = 0; i < this.getMecanicos().length; i++) {
+            aux1 = this.getMecanicos()[i][0];
+            aux2 = this.getMecanicos()[i][1];
+            if (aux1.equalsIgnoreCase(tipoMotor) && aux2.equalsIgnoreCase("Disponible")) {
+                mecanico = "Si hay mecánico : " + i; 
+                encontrado=true;
+            }
+        }if (!encontrado) {
+            mecanico= "No hay mecánico disponible "+ "-1";
+        }
+        return mecanico;
+    }
+    
+    public void llenarMecanicos(){
+        String aux1="Gasolina/Diesel",aux2="Electronico",aux3="Alta Gama";
+        String[][] mecaTemp= new String[this.getMecanicos().length][2];
+        for (int i = 0; i < this.getMecanicos().length; i++) {
+            if (i<17) {
+                mecaTemp[i][0]=aux1;                
+            }else if (i>=17&&i<34) {
+                mecaTemp[i][0]=aux2;
+            }else if (i>=34) {
+                mecaTemp[i][0]=aux3;
+            }
+            mecaTemp[i][1]="Disponible";
+        }
+        this.setMecanicos(mecaTemp);
+    }
+    
+    public String[][] getMecanicos() {
+        return mecanicos;
+    }
+
+    public void setMecanicos(String[][] mecanicos) {
+        this.mecanicos = mecanicos;
     }
 
     public Thread getMiLlamada() {

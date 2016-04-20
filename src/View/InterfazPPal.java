@@ -8,8 +8,10 @@ import LogicaNegocio.HiloLlamada;
  */
 
 public class InterfazPPal extends javax.swing.JFrame {
+    int contLlamadas;
     public InterfazPPal() {
         initComponents();
+        contLlamadas=0;
     }
     
     @SuppressWarnings("unchecked")
@@ -48,7 +50,8 @@ public class InterfazPPal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        HiloLlamada x = new HiloLlamada();
+        contLlamadas++;
+        HiloLlamada x = new HiloLlamada(contLlamadas);
         LlamadaView llamadaNueva = new LlamadaView();        
         llamadaNueva.setVisible(true);
         llamadaNueva.generarHilo(x);
